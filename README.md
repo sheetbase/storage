@@ -192,17 +192,10 @@ Get file information
 
 **Request body**
 
-| Name     | Type               | Description |
-| -------- | ------------------ | ----------- |
-| **id**   | <a data-sref="string"><code>string</code></a>         |             |
-| **data** | <a data-sref="FileUpdateData" href="https://sheetbase.github.io/server/interfaces/fileupdatedata.html"><code>FileUpdateData</code></a> |             |
-
-**Middleware data**
-
-| Name      | Type               | Description |
-| --------- | ------------------ | ----------- |
-| **( req** | <a data-sref="{ body"><code>{ body</code></a>         |             |
-| **data**  | <a data-sref="FileUpdateData" href="https://sheetbase.github.io/server/interfaces/fileupdatedata.html"><code>FileUpdateData</code></a> |             |
+| Name       | Type               | Description |
+| ---------- | ------------------ | ----------- |
+| **id**     | <a data-sref="string"><code>string</code></a>         |             |
+| **update** | <a data-sref="FileUpdateData" href="https://sheetbase.github.io/server/interfaces/fileupdatedata.html"><code>FileUpdateData</code></a> |             |
 
 **Response**
 

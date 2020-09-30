@@ -84,13 +84,13 @@ export class StorageRoute {
     req: {
       body: {
         id: string;
-        data: FileUpdateData;
+        update: FileUpdateData;
       };
     },
     res: RouteResponse
   ) {
-    const {id, data} = req.body;
-    this.storageService.updateFile(id, data);
+    const {id, update} = req.body;
+    this.storageService.updateFile(id, update);
     return res.done();
   }
 
