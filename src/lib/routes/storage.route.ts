@@ -1,12 +1,10 @@
-import {RouteResponse} from '@sheetbase/server';
-
 import {
   UploadFile,
   RenamePolicy,
   FileSharing,
   UploadResource,
   FileUpdateData,
-} from '../types';
+} from '../types/storage.type';
 import {StorageService} from '../services/storage.service';
 
 export class StorageRoute {
@@ -80,32 +78,24 @@ export class StorageRoute {
   /**
    * update a file
    */
-  post(
-    req: {
-      body: {
-        id: string;
-        update: FileUpdateData;
-      };
-    },
-    res: RouteResponse
-  ) {
+  post(req: {
+    body: {
+      id: string;
+      update: FileUpdateData;
+    };
+  }) {
     const {id, update} = req.body;
     this.storageService.updateFile(id, update);
-    return res.done();
   }
 
   /**
    * delete a file
    */
-  delete(
-    req: {
-      body: {
-        id: string;
-      };
-    },
-    res: RouteResponse
-  ) {
+  delete(req: {
+    body: {
+      id: string;
+    };
+  }) {
     this.storageService.removeFile(req.body.id);
-    return res.done();
   }
 }

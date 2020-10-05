@@ -1,13 +1,12 @@
-export interface Options extends Intergration {
-  // the upload folder id
-  uploadFolder: string;
-  // limits
+export interface Options extends Extendable {
+  uploadFolder: string; // the upload folder id
+}
+
+export interface Extendable {
   allowTypes?: string[]; // mimetype list
   maxSize?: number; // MB = 1,000,000 bytes
-  // structured by: <year>/<month>
-  nested?: boolean;
-  // customize the response url
-  urlBuilder?: string[] | {(id: string): string};
+  nested?: boolean; // structured by: <year>/<month>
+  urlBuilder?: string[] | {(id: string): string}; // customize the response url
 }
 
 export interface AuthData {
@@ -15,14 +14,6 @@ export interface AuthData {
   sub: string;
   tty: 'ID';
   isAdmin: boolean;
-}
-
-export interface AuthToken {
-  decodeIdToken: (idToken: string) => AuthData;
-}
-
-export interface Intergration {
-  AuthToken?: AuthToken;
 }
 
 export interface UploadFile {

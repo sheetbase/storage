@@ -1,6 +1,6 @@
 {
   "name": "@sheetbase/storage",
-  "version": "3.0.0-beta1",
+  "version": "3.0.0",
   "description": "Sheetbase file management with Drive.",
   "author": "Sheetbase",
   "homepage": "https://sheetbase.dev",
@@ -36,7 +36,7 @@
     "url": "https://github.com/sheetbase/server/issues"
   },
   "dependencies": {
-    "@sheetbase/server": "^3.0.0"
+    "@sheetbase/server": "^3.0.3"
   },
   "devDependencies": {
     "@sheetbase/app-scripts": "^3.0.0",

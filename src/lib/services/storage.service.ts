@@ -1,9 +1,4 @@
-/* eslint-disable no-undef */
-import {RouteRequest} from '@sheetbase/server';
-
 import {
-  Options,
-  Intergration,
   UploadFile,
   UploadResource,
   FileInfo,
@@ -12,16 +7,13 @@ import {
   SharingPreset,
   FileSharing,
   FileUpdateData,
-  AuthData,
-  AuthToken,
-} from '../types';
+  Extendable,
+} from '../types/storage.type';
+import {OptionService} from './option.service';
 import {HelperService} from './helper.service';
+import {SecurityService} from './security.service';
 
 export class StorageService {
-  private options: Options;
-  private req: RouteRequest | undefined;
-  private auth: AuthData | undefined;
-
   // for viewing the file only
   // PUBLIC: anyone
   // PRIVATE:
@@ -32,30 +24,18 @@ export class StorageService {
     PRIVATE: {access: 'PRIVATE', permission: 'VIEW'},
   };
 
-  constructor(private helperService: HelperService, options: Options) {
-    this.options = {
-      maxSize: 10,
-      urlBuilder: ['https://drive.google.com/uc?id='],
-      ...options,
-    };
-  }
+  constructor(
+    private optionService: OptionService,
+    private helperService: HelperService,
+    private securityService: SecurityService
+  ) {}
 
-  setIntegration<K extends keyof Intergration>(key: K, value: AuthToken) {
-    this.options[key] = value;
-    return this as StorageService;
-  }
-
-  setRequest(request: RouteRequest) {
-    // req object
-    this.req = request;
-    // auth object
-    const AuthToken = this.options.AuthToken;
-    const idToken = request
-      ? request.query['idToken'] || request.body['idToken']
-      : null;
-    if (!!idToken && !!AuthToken) {
-      this.auth = AuthToken.decodeIdToken(idToken);
-    }
+  extend(extendableOptions: Extendable) {
+    return new StorageService(
+      this.optionService,
+      this.helperService,
+      this.securityService
+    ).optionService.setOptions(extendableOptions);
   }
 
   base64Parser(base64Value: string) {
@@ -74,24 +54,26 @@ export class StorageService {
     while (parents.hasNext()) {
       parentIds.push(parents.next().getId());
     }
-    return parentIds.indexOf(this.options.uploadFolder) > -1;
+    return parentIds.indexOf(this.optionService.getOptions().uploadFolder) > -1;
   }
 
   isFileShared(file: GoogleAppsScript.Drive.File): boolean {
     const access = file.getSharingAccess();
     return (
+      // eslint-disable-next-line no-undef
       access === DriveApp.Access.ANYONE ||
+      // eslint-disable-next-line no-undef
       access === DriveApp.Access.ANYONE_WITH_LINK
     );
   }
 
   isValidFileType(mimeType: string) {
-    const {allowTypes} = this.options;
+    const {allowTypes} = this.optionService.getOptions();
     return !allowTypes || allowTypes.indexOf(mimeType) > -1;
   }
 
   isValidFileSize(sizeBytes: number) {
-    const {maxSize} = this.options;
+    const {maxSize} = this.optionService.getOptions();
     const sizeMB = sizeBytes / 1000000;
     return !maxSize || maxSize === 0 || sizeMB <= maxSize;
   }
@@ -108,6 +90,7 @@ export class StorageService {
     // rename
     if (rename) {
       if (rename === 'AUTO') {
+        // eslint-disable-next-line no-undef
         name = Utilities.getUuid();
       }
       if (rename === 'HASH') {
@@ -118,7 +101,7 @@ export class StorageService {
   }
 
   buildFileUrl(id: string) {
-    const {urlBuilder} = this.options;
+    const {urlBuilder} = this.optionService.getOptions();
     const builder =
       urlBuilder instanceof Array
         ? (id: string) => urlBuilder[0] + id + (urlBuilder[1] || '')
@@ -155,7 +138,8 @@ export class StorageService {
   }
 
   getUploadFolder() {
-    const {uploadFolder} = this.options;
+    const {uploadFolder} = this.optionService.getOptions();
+    // eslint-disable-next-line no-undef
     return DriveApp.getFolderById(uploadFolder);
   }
 
@@ -190,7 +174,9 @@ export class StorageService {
     mimeType: string,
     base64Body: string
   ) {
+    // eslint-disable-next-line no-undef
     const data = Utilities.base64Decode(base64Body, Utilities.Charset.UTF_8);
+    // eslint-disable-next-line no-undef
     const blob = Utilities.newBlob(data, mimeType, fileName);
     return parentFolder.createFile(blob);
   }
@@ -202,16 +188,19 @@ export class StorageService {
     const {access = 'PRIVATE', permission = 'VIEW'} =
       typeof sharing === 'string' ? this.getSharingPreset(sharing) : sharing;
     return file.setSharing(
+      // eslint-disable-next-line no-undef
       (DriveApp.Access[
         (access.toUpperCase() as unknown) as number
       ] as unknown) as GoogleAppsScript.Drive.Access,
+      // eslint-disable-next-line no-undef
       (DriveApp.Permission[
         (permission.toUpperCase() as unknown) as number
       ] as unknown) as GoogleAppsScript.Drive.Permission
     );
   }
 
-  setEditPermissionForUser(file: GoogleAppsScript.Drive.File, auth: AuthData) {
+  setEditPermissionForUser(file: GoogleAppsScript.Drive.File) {
+    const auth = this.securityService.getAuth();
     if (!!auth && !!auth.sub) {
       file.addEditors([auth.sub]);
     }
@@ -226,11 +215,13 @@ export class StorageService {
   }
 
   hasEditPermission(file: GoogleAppsScript.Drive.File) {
-    const {sub} = this.auth || {};
-    return !!sub && file.getAccess(sub) === DriveApp.Permission.EDIT;
+    const auth = this.securityService.getAuth();
+    // eslint-disable-next-line no-undef
+    return !!auth && file.getAccess(auth.sub) === DriveApp.Permission.EDIT;
   }
 
   getFileById(id: string) {
+    // eslint-disable-next-line no-undef
     const file = DriveApp.getFileById(id);
     if (
       file.isTrashed() || // file in the trash
@@ -272,7 +263,7 @@ export class StorageService {
     let folder = this.getUploadFolder();
     if (customFolder) {
       folder = this.getOrCreateFolderByName(customFolder, folder);
-    } else if (this.options.nested) {
+    } else if (this.optionService.getOptions().nested) {
       folder = this.createFolderByYearAndMonth(folder);
     }
 
@@ -287,7 +278,7 @@ export class StorageService {
     // set sharing
     this.setFileSharing(file, sharing);
     // set edit security
-    this.setEditPermissionForUser(file, this.auth as AuthData);
+    this.setEditPermissionForUser(file);
 
     // return
     return file;

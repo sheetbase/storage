@@ -1,4 +1,4 @@
-import {md5} from '../../md5/md5';
+import {md5} from '../vendors/md5.vendor';
 
 export class HelperService {
   constructor() {}

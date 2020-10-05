@@ -60,14 +60,13 @@ export class App {
 <h2><a name="options"><p>Options</p>
 </a></h2>
 
-| Name                                                                                        | Type                                                                                                 | Description |
-| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------- |
-| [AuthToken?](https://sheetbase.github.io/server/interfaces/options.html#authtoken)          | <code><a href="https://sheetbase.github.io/server/globals.html" target="_blank">AuthToken</a></code> |             |
-| [allowTypes?](https://sheetbase.github.io/server/interfaces/options.html#allowtypes)        | <code>string[]</code>                                                                                |             |
-| [maxSize?](https://sheetbase.github.io/server/interfaces/options.html#maxsize)              | <code>undefined \| number</code>                                                                     |             |
-| [nested?](https://sheetbase.github.io/server/interfaces/options.html#nested)                | <code>undefined \| false \| true</code>                                                              |             |
-| [**uploadFolder**](https://sheetbase.github.io/server/interfaces/options.html#uploadfolder) | <code>string</code>                                                                                  |             |
-| [urlBuilder?](https://sheetbase.github.io/server/interfaces/options.html#urlbuilder)        | <code>string[] \| function</code>                                                                    |             |
+| Name                                                                                        | Type                                    | Description |
+| ------------------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
+| [allowTypes?](https://sheetbase.github.io/server/interfaces/options.html#allowtypes)        | <code>string[]</code>                   |             |
+| [maxSize?](https://sheetbase.github.io/server/interfaces/options.html#maxsize)              | <code>undefined \| number</code>        |             |
+| [nested?](https://sheetbase.github.io/server/interfaces/options.html#nested)                | <code>undefined \| false \| true</code> |             |
+| [**uploadFolder**](https://sheetbase.github.io/server/interfaces/options.html#uploadfolder) | <code>string</code>                     |             |
+| [urlBuilder?](https://sheetbase.github.io/server/interfaces/options.html#urlbuilder)        | <code>string[] \| function</code>       |             |
 
 </section>
 
@@ -81,11 +80,14 @@ export class App {
 <h3><a name="lib-properties"><p>Lib properties</p>
 </a></h3>
 
-| Name                                                                                 | Type                                                                                                                     | Description |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| [helperService](https://sheetbase.github.io/server/classes/lib.html#helperservice)   | <code><a href="https://sheetbase.github.io/server/classes/helperservice.html" target="_blank">HelperService</a></code>   |             |
-| [storageRoute](https://sheetbase.github.io/server/classes/lib.html#storageroute)     | <code><a href="https://sheetbase.github.io/server/classes/storageroute.html" target="_blank">StorageRoute</a></code>     |             |
-| [storageService](https://sheetbase.github.io/server/classes/lib.html#storageservice) | <code><a href="https://sheetbase.github.io/server/classes/storageservice.html" target="_blank">StorageService</a></code> |             |
+| Name                                                                                       | Type                                                                                                                           | Description |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| [helperService](https://sheetbase.github.io/server/classes/lib.html#helperservice)         | <code><a href="https://sheetbase.github.io/server/classes/helperservice.html" target="_blank">HelperService</a></code>         |             |
+| [optionService](https://sheetbase.github.io/server/classes/lib.html#optionservice)         | <code><a href="https://sheetbase.github.io/server/classes/optionservice.html" target="_blank">OptionService</a></code>         |             |
+| [securityService](https://sheetbase.github.io/server/classes/lib.html#securityservice)     | <code><a href="https://sheetbase.github.io/server/classes/securityservice.html" target="_blank">SecurityService</a></code>     |             |
+| [storageMiddleware](https://sheetbase.github.io/server/classes/lib.html#storagemiddleware) | <code><a href="https://sheetbase.github.io/server/classes/storagemiddleware.html" target="_blank">StorageMiddleware</a></code> |             |
+| [storageRoute](https://sheetbase.github.io/server/classes/lib.html#storageroute)           | <code><a href="https://sheetbase.github.io/server/classes/storageroute.html" target="_blank">StorageRoute</a></code>           |             |
+| [storageService](https://sheetbase.github.io/server/classes/lib.html#storageservice)       | <code><a href="https://sheetbase.github.io/server/classes/storageservice.html" target="_blank">StorageService</a></code>       |             |
 
 <h3><a name="lib-methods"><p>Lib methods</p>
 </a></h3>
@@ -164,7 +166,7 @@ StorageModule.registerRoutes(routeEnabling?);
 
 **Response**
 
-`TextOutput`
+`void`
 
 ---
 
@@ -199,7 +201,7 @@ Get file information
 
 **Response**
 
-`TextOutput`
+`void`
 
 ---
 
