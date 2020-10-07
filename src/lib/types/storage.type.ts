@@ -1,8 +1,5 @@
-export interface Options extends Extendable {
+export interface Options {
   uploadFolder: string; // the upload folder id
-}
-
-export interface Extendable {
   allowTypes?: string[]; // mimetype list
   maxSize?: number; // MB = 1,000,000 bytes
   nested?: boolean; // structured by: <year>/<month>
@@ -13,7 +10,7 @@ export interface AuthData {
   uid: string;
   sub: string;
   tty: 'ID';
-  isAdmin: boolean;
+  [claim: string]: unknown;
 }
 
 export interface UploadFile {

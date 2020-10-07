@@ -7,11 +7,9 @@ import {
   SharingPreset,
   FileSharing,
   FileUpdateData,
-  Extendable,
 } from '../types/storage.type';
 import {OptionService} from './option.service';
 import {HelperService} from './helper.service';
-import {SecurityService} from './security.service';
 
 export class StorageService {
   // for viewing the file only
@@ -26,17 +24,8 @@ export class StorageService {
 
   constructor(
     private optionService: OptionService,
-    private helperService: HelperService,
-    private securityService: SecurityService
+    private helperService: HelperService
   ) {}
-
-  extend(extendableOptions: Extendable) {
-    return new StorageService(
-      this.optionService,
-      this.helperService,
-      this.securityService
-    ).optionService.setOptions(extendableOptions);
-  }
 
   base64Parser(base64Value: string) {
     const [header, body] = base64Value.split(';base64,');
@@ -199,48 +188,48 @@ export class StorageService {
     );
   }
 
-  setEditPermissionForUser(file: GoogleAppsScript.Drive.File) {
-    const auth = this.securityService.getAuth();
-    if (!!auth && !!auth.sub) {
-      file.addEditors([auth.sub]);
-    }
+  setEditPermissionForUser(
+    authEmail: string,
+    file: GoogleAppsScript.Drive.File
+  ) {
+    file.addEditors([authEmail]);
     return file;
   }
 
-  hasViewPermission(file: GoogleAppsScript.Drive.File) {
+  hasEditPermission(authEmail: string, file: GoogleAppsScript.Drive.File) {
+    // eslint-disable-next-line no-undef
+    return file.getAccess(authEmail) === DriveApp.Permission.EDIT;
+  }
+
+  hasViewPermission(file: GoogleAppsScript.Drive.File, authEmail?: string) {
     return (
       this.isFileShared(file) || // shared publicly
-      this.hasEditPermission(file) // for logged in user
+      (authEmail ? this.hasEditPermission(authEmail, file) : false) // for logged in user
     );
   }
 
-  hasEditPermission(file: GoogleAppsScript.Drive.File) {
-    const auth = this.securityService.getAuth();
-    // eslint-disable-next-line no-undef
-    return !!auth && file.getAccess(auth.sub) === DriveApp.Permission.EDIT;
-  }
-
-  getFileById(id: string) {
+  getFileById(id: string, authEmail?: string) {
     // eslint-disable-next-line no-undef
     const file = DriveApp.getFileById(id);
     if (
       file.isTrashed() || // file in the trash
-      !this.hasViewPermission(file) // no view permission
+      !this.hasViewPermission(file, authEmail) // no view permission
     ) {
       throw new Error('storage/no-file');
     }
     return file;
   }
 
-  getFileInfoById(id: string) {
-    return this.getFileInfo(this.getFileById(id));
+  getFileInfoById(id: string, authEmail?: string) {
+    return this.getFileInfo(this.getFileById(id, authEmail));
   }
 
   uploadFile(
     fileData: UploadFile,
     customFolder?: string,
     renamePolicy?: RenamePolicy,
-    sharing: FileSharing = 'PRIVATE'
+    sharing: FileSharing = 'PRIVATE',
+    authEmail?: string
   ) {
     // check input data
     if (!fileData || !fileData.base64Value || !fileData.name) {
@@ -278,13 +267,15 @@ export class StorageService {
     // set sharing
     this.setFileSharing(file, sharing);
     // set edit security
-    this.setEditPermissionForUser(file);
+    if (authEmail) {
+      this.setEditPermissionForUser(authEmail, file);
+    }
 
     // return
     return file;
   }
 
-  uploadFiles(uploadResources: UploadResource[]) {
+  uploadFiles(uploadResources: UploadResource[], authEmail?: string) {
     const files: GoogleAppsScript.Drive.File[] = [];
     for (let i = 0; i < uploadResources.length; i++) {
       // upload a file
@@ -298,7 +289,8 @@ export class StorageService {
         fileData,
         customFolder,
         renamePolicy,
-        sharing
+        sharing,
+        authEmail
       );
       // save to return
       files.push(file);
@@ -306,9 +298,9 @@ export class StorageService {
     return files;
   }
 
-  updateFile(id: string, data: FileUpdateData = {}) {
-    let file = this.getFileById(id);
-    if (!this.hasEditPermission(file)) {
+  updateFile(authEmail: string, id: string, data: FileUpdateData = {}) {
+    let file = this.getFileById(id, authEmail);
+    if (!this.hasEditPermission(authEmail, file)) {
       throw new Error('storage/no-edit');
     }
     // update data
@@ -328,9 +320,9 @@ export class StorageService {
     return file;
   }
 
-  removeFile(id: string) {
-    const file = this.getFileById(id);
-    if (!this.hasEditPermission(file)) {
+  removeFile(authEmail: string, id: string) {
+    const file = this.getFileById(id, authEmail);
+    if (!this.hasEditPermission(authEmail, file)) {
       throw new Error('storage/no-edit');
     }
     return file.setTrashed(true);

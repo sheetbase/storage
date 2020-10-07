@@ -1,4 +1,4 @@
-import {Options, Extendable} from '../types/storage.type';
+import {Options} from '../types/storage.type';
 
 export class OptionService {
   private options: Options;
@@ -13,9 +13,5 @@ export class OptionService {
 
   getOptions() {
     return this.options;
-  }
-
-  setOptions(options: Options | Extendable) {
-    return (this.options = {...this.options, ...options});
   }
 }

@@ -4,6 +4,7 @@ import {
   FileSharing,
   UploadResource,
   FileUpdateData,
+  AuthData,
 } from '../types/storage.type';
 import {StorageService} from '../services/storage.service';
 
@@ -30,8 +31,14 @@ export class StorageRoute {
     query: {
       id: string;
     };
+    data: {
+      auth?: AuthData;
+    };
   }) {
-    return this.storageService.getFileInfoById(req.query.id);
+    return this.storageService.getFileInfoById(
+      req.query.id,
+      req.data.auth ? req.data.auth.sub : undefined
+    );
   }
 
   /**
@@ -45,6 +52,9 @@ export class StorageRoute {
       share?: FileSharing;
       files?: UploadResource[];
     };
+    data: {
+      auth?: AuthData;
+    };
   }) {
     const {
       // single file
@@ -55,6 +65,7 @@ export class StorageRoute {
       // multiple files
       files: uploadResources,
     } = req.body;
+    const authEmail = req.data.auth ? req.data.auth.sub : undefined;
     return (() => {
       if (!!fileData && !uploadResources) {
         // single file
@@ -62,12 +73,16 @@ export class StorageRoute {
           fileData,
           customFolder,
           renamePolicy,
-          sharing
+          sharing,
+          authEmail
         );
         return this.storageService.getFileInfo(file);
       } else if (!!uploadResources && uploadResources.length <= 30) {
         // multiple files
-        const files = this.storageService.uploadFiles(uploadResources);
+        const files = this.storageService.uploadFiles(
+          uploadResources,
+          authEmail
+        );
         return this.storageService.getFilesInfo(files);
       } else {
         throw new Error('storage/invalid-upload');
@@ -83,9 +98,13 @@ export class StorageRoute {
       id: string;
       update: FileUpdateData;
     };
+    data: {
+      auth: AuthData;
+    };
   }) {
     const {id, update} = req.body;
-    this.storageService.updateFile(id, update);
+    const authEmail = req.data.auth.sub;
+    this.storageService.updateFile(authEmail, id, update);
   }
 
   /**
@@ -95,7 +114,11 @@ export class StorageRoute {
     body: {
       id: string;
     };
+    data: {
+      auth: AuthData;
+    };
   }) {
-    this.storageService.removeFile(req.body.id);
+    const authEmail = req.data.auth.sub;
+    this.storageService.removeFile(authEmail, req.body.id);
   }
 }
