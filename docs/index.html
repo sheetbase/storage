@@ -75,7 +75,7 @@
 						<li><a href="#lib">Lib</a><ul>
 								<li><a href="#lib-properties">Lib properties</a></li>
 								<li><a href="#lib-methods">Lib methods</a><ul>
-										<li><a href="#lib-registerroutes-0"><code>registerRoutes(routeEnabling?)</code></a></li>
+										<li><a href="#lib-registerroutes-0"><code>registerRoutes(routeEnabling?, middlewares?)</code></a></li>
 									</ul>
 								</li>
 							</ul>
@@ -184,16 +184,6 @@
 								<td></td>
 							</tr>
 							<tr>
-								<td><a href="https://sheetbase.github.io/server/classes/lib.html#securityservice">securityService</a></td>
-								<td><code><a href="https://sheetbase.github.io/server/classes/securityservice.html" target="_blank">SecurityService</a></code></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td><a href="https://sheetbase.github.io/server/classes/lib.html#storagemiddleware">storageMiddleware</a></td>
-								<td><code><a href="https://sheetbase.github.io/server/classes/storagemiddleware.html" target="_blank">StorageMiddleware</a></code></td>
-								<td></td>
-							</tr>
-							<tr>
 								<td><a href="https://sheetbase.github.io/server/classes/lib.html#storageroute">storageRoute</a></td>
 								<td><code><a href="https://sheetbase.github.io/server/classes/storageroute.html" target="_blank">StorageRoute</a></code></td>
 								<td></td>
@@ -215,12 +205,12 @@
 							</tr>
 						</thead>
 						<tbody><tr>
-								<td><a href="#lib-registerroutes-0">registerRoutes(routeEnabling?)</a></td>
+								<td><a href="#lib-registerroutes-0">registerRoutes(routeEnabling?, middlewares?)</a></td>
 								<td><code>RouterService<></code></td>
 								<td>Expose the module routes</td>
 							</tr>
 					</tbody></table>
-					<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/server/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?)</code></p>
+					<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/server/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?, middlewares?)</code></p>
 					</a></h4>
 					<p><strong>Expose the module routes</strong></p>
 					<p><strong>Parameters</strong></p>
@@ -235,6 +225,11 @@
 						<tbody><tr>
 								<td>routeEnabling</td>
 								<td><code>true | DisabledRoutes</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>middlewares</td>
+								<td><code>Middlewares | RouteMiddlewares</code></td>
 								<td></td>
 							</tr>
 					</tbody></table>
@@ -315,6 +310,21 @@
 								<td></td>
 							</tr>
 					</tbody></table>
+					<p><strong>Middleware data</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><strong>auth</strong></td>
+								<td><a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
 					<p><strong>Response</strong></p>
 					<p><code>void</code></p>
 					<hr>
@@ -333,6 +343,21 @@
 						<tbody><tr>
 								<td><strong>id</strong></td>
 								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Middleware data</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td>auth?</td>
+								<td><a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a></td>
 								<td></td>
 							</tr>
 					</tbody></table>
@@ -359,6 +384,21 @@
 							<tr>
 								<td><strong>update</strong></td>
 								<td><a data-sref="FileUpdateData" href="https://sheetbase.github.io/server/interfaces/fileupdatedata.html"><code>FileUpdateData</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Middleware data</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><strong>auth</strong></td>
+								<td><a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a></td>
 								<td></td>
 							</tr>
 					</tbody></table>
@@ -400,6 +440,21 @@
 							<tr>
 								<td>files?</td>
 								<td><a data-sref="UploadResource["><code>UploadResource[</code></a>]</td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Middleware data</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td>auth?</td>
+								<td><a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a></td>
 								<td></td>
 							</tr>
 					</tbody></table>

@@ -23,7 +23,7 @@
       - [`GET` /storage](#GET__storage)
       - [`POST` /storage](#POST__storage)
       - [`PUT` /storage](#PUT__storage)
-- [Detail API reference](https://sheetbase.github.io/server)
+- [Detail API reference](https://sheetbase.github.io/storage)
 
 
 </section>
@@ -60,19 +60,19 @@ export class App {
 <h2><a name="options"><p>Options</p>
 </a></h2>
 
-| Name                                                                                        | Type                                    | Description |
-| ------------------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
-| [allowTypes?](https://sheetbase.github.io/server/interfaces/options.html#allowtypes)        | <code>string[]</code>                   |             |
-| [maxSize?](https://sheetbase.github.io/server/interfaces/options.html#maxsize)              | <code>undefined \| number</code>        |             |
-| [nested?](https://sheetbase.github.io/server/interfaces/options.html#nested)                | <code>undefined \| false \| true</code> |             |
-| [**uploadFolder**](https://sheetbase.github.io/server/interfaces/options.html#uploadfolder) | <code>string</code>                     |             |
-| [urlBuilder?](https://sheetbase.github.io/server/interfaces/options.html#urlbuilder)        | <code>string[] \| function</code>       |             |
+| Name                                                                                         | Type                                    | Description |
+| -------------------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
+| [allowTypes?](https://sheetbase.github.io/storage/interfaces/options.html#allowtypes)        | <code>string[]</code>                   |             |
+| [maxSize?](https://sheetbase.github.io/storage/interfaces/options.html#maxsize)              | <code>undefined \| number</code>        |             |
+| [nested?](https://sheetbase.github.io/storage/interfaces/options.html#nested)                | <code>undefined \| false \| true</code> |             |
+| [**uploadFolder**](https://sheetbase.github.io/storage/interfaces/options.html#uploadfolder) | <code>string</code>                     |             |
+| [urlBuilder?](https://sheetbase.github.io/storage/interfaces/options.html#urlbuilder)        | <code>string[] \| function</code>       |             |
 
 </section>
 
 <section id="lib" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
 
-<h2><a name="lib" href="https://sheetbase.github.io/server/classes/lib.html"><p>Lib</p>
+<h2><a name="lib" href="https://sheetbase.github.io/storage/classes/lib.html"><p>Lib</p>
 </a></h2>
 
 **The `Lib` class.**
@@ -80,12 +80,12 @@ export class App {
 <h3><a name="lib-properties"><p>Lib properties</p>
 </a></h3>
 
-| Name                                                                                 | Type                                                                                                                     | Description |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| [helperService](https://sheetbase.github.io/server/classes/lib.html#helperservice)   | <code><a href="https://sheetbase.github.io/server/classes/helperservice.html" target="_blank">HelperService</a></code>   |             |
-| [optionService](https://sheetbase.github.io/server/classes/lib.html#optionservice)   | <code><a href="https://sheetbase.github.io/server/classes/optionservice.html" target="_blank">OptionService</a></code>   |             |
-| [storageRoute](https://sheetbase.github.io/server/classes/lib.html#storageroute)     | <code><a href="https://sheetbase.github.io/server/classes/storageroute.html" target="_blank">StorageRoute</a></code>     |             |
-| [storageService](https://sheetbase.github.io/server/classes/lib.html#storageservice) | <code><a href="https://sheetbase.github.io/server/classes/storageservice.html" target="_blank">StorageService</a></code> |             |
+| Name                                                                                  | Type                                                                                                                      | Description |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [helperService](https://sheetbase.github.io/storage/classes/lib.html#helperservice)   | <code><a href="https://sheetbase.github.io/storage/classes/helperservice.html" target="_blank">HelperService</a></code>   |             |
+| [optionService](https://sheetbase.github.io/storage/classes/lib.html#optionservice)   | <code><a href="https://sheetbase.github.io/storage/classes/optionservice.html" target="_blank">OptionService</a></code>   |             |
+| [storageRoute](https://sheetbase.github.io/storage/classes/lib.html#storageroute)     | <code><a href="https://sheetbase.github.io/storage/classes/storageroute.html" target="_blank">StorageRoute</a></code>     |             |
+| [storageService](https://sheetbase.github.io/storage/classes/lib.html#storageservice) | <code><a href="https://sheetbase.github.io/storage/classes/storageservice.html" target="_blank">StorageService</a></code> |             |
 
 <h3><a name="lib-methods"><p>Lib methods</p>
 </a></h3>
@@ -94,7 +94,7 @@ export class App {
 | --------------------------------------------------------------------- | ---------------------------- | ------------------------ |
 | [registerRoutes(routeEnabling?, middlewares?)](#lib-registerroutes-0) | <code>RouterService<></code> | Expose the module routes |
 
-<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/server/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?, middlewares?)</code></p>
+<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/storage/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?, middlewares?)</code></p>
 </a></h4>
 
 **Expose the module routes**
@@ -167,7 +167,7 @@ StorageModule.registerRoutes(routeEnabling?);
 
 | Name     | Type         | Description |
 | -------- | ------------ | ----------- |
-| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/storage/interfaces/authdata.html"><code>AuthData</code></a> |             |
 
 **Response**
 
@@ -190,7 +190,7 @@ Get file information
 
 | Name  | Type         | Description |
 | ----- | ------------ | ----------- |
-| auth? | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+| auth? | <a data-sref="AuthData" href="https://sheetbase.github.io/storage/interfaces/authdata.html"><code>AuthData</code></a> |             |
 
 **Response**
 
@@ -208,13 +208,13 @@ Get file information
 | Name       | Type               | Description |
 | ---------- | ------------------ | ----------- |
 | **id**     | <a data-sref="string"><code>string</code></a>         |             |
-| **update** | <a data-sref="FileUpdateData" href="https://sheetbase.github.io/server/interfaces/fileupdatedata.html"><code>FileUpdateData</code></a> |             |
+| **update** | <a data-sref="FileUpdateData" href="https://sheetbase.github.io/storage/interfaces/fileupdatedata.html"><code>FileUpdateData</code></a> |             |
 
 **Middleware data**
 
 | Name     | Type         | Description |
 | -------- | ------------ | ----------- |
-| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/storage/interfaces/authdata.html"><code>AuthData</code></a> |             |
 
 **Response**
 
@@ -231,17 +231,17 @@ Get file information
 
 | Name    | Type                 | Description |
 | ------- | -------------------- | ----------- |
-| file?   | <a data-sref="UploadFile" href="https://sheetbase.github.io/server/interfaces/uploadfile.html"><code>UploadFile</code></a>       |             |
+| file?   | <a data-sref="UploadFile" href="https://sheetbase.github.io/storage/interfaces/uploadfile.html"><code>UploadFile</code></a>       |             |
 | folder? | <a data-sref="string"><code>string</code></a>           |             |
-| rename? | <a data-sref="RenamePolicy" href="https://sheetbase.github.io/server/globals.html#renamepolicy"><code>RenamePolicy</code></a>     |             |
-| share?  | <a data-sref="FileSharing" href="https://sheetbase.github.io/server/globals.html#filesharing"><code>FileSharing</code></a>      |             |
+| rename? | <a data-sref="RenamePolicy" href="https://sheetbase.github.io/storage/globals.html#renamepolicy"><code>RenamePolicy</code></a>     |             |
+| share?  | <a data-sref="FileSharing" href="https://sheetbase.github.io/storage/globals.html#filesharing"><code>FileSharing</code></a>      |             |
 | files?  | <a data-sref="UploadResource["><code>UploadResource[</code></a>] |             |
 
 **Middleware data**
 
 | Name  | Type         | Description |
 | ----- | ------------ | ----------- |
-| auth? | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+| auth? | <a data-sref="AuthData" href="https://sheetbase.github.io/storage/interfaces/authdata.html"><code>AuthData</code></a> |             |
 
 **Response**
 
@@ -255,6 +255,6 @@ Get file information
 
 ## License
 
-**@sheetbase/storage** is released under the [MIT](https://github.com/sheetbase/server/blob/master/LICENSE) license.
+**@sheetbase/storage** is released under the [MIT](https://github.com/sheetbase/storage/blob/master/LICENSE) license.
 
 </section>
