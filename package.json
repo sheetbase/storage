@@ -1,6 +1,6 @@
 {
   "name": "@sheetbase/storage",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Sheetbase file management with Drive.",
   "author": "Sheetbase",
   "homepage": "https://sheetbase.dev",
@@ -35,10 +35,10 @@
     "url": "https://github.com/sheetbase/storage/issues"
   },
   "dependencies": {
-    "@sheetbase/server": "^3.0.5"
+    "@sheetbase/server": "^3.0.7"
   },
   "devDependencies": {
-    "@sheetbase/app-scripts": "^3.0.1",
+    "@sheetbase/app-scripts": "^3.0.3",
     "@types/chai": "^4.2.13",
     "@types/google-apps-script": "^1.0.16",
     "@types/mocha": "^8.0.3",
